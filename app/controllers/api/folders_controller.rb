@@ -21,7 +21,7 @@ module Api
 			if @folder.save
 				render json: @folder
 			else
-				render json: {error: folder.errors.messages}, status:422
+				render json: {error: @folder.errors.messages}, status:422
 			end
 		end
 
@@ -31,7 +31,7 @@ module Api
 			if folder.update(folder_params)
 				render json: FolderSerializer.new(folder).serialized_json
 			else
-				render json: {error: folder.errors.messages}, status:422
+				render json: {error: @folder.errors.messages}, status:422
 			end
 		end
 

@@ -14,31 +14,31 @@ module Api
 		end
 
 		def create
-			todo = Folder.find(params[:folder_id]).todos.new(todos_create_params)
-			if todo.save
-				render json: todo
+			@todo = Folder.find(params[:folder_id]).todos.new(todos_create_params)
+			if @todo.save
+				render json: @todo
 			else
-				render json: {error: todo.errors.messages}, status:422
+				render json: {error: @todo.errors.messages}, status:422
 			end
 		end
 
 		def destroy
-			todo = Todo.find(params[:id])
+			@todo = Todo.find(params[:id])
 
-			if todo.destroy
+			if @todo.destroy
 				head:no_content
 			else
-				render json: {error: todo.errors.messages}, status:422
+				render json: {error: @todo.errors.messages}, status:422
 			end
 		end
 
 		def update 
-			todo = Todo.find(params[:id])
+			@todo = Todo.find(params[:id])
 
-			if todo.update(todos_update_params)
-				render json: todo
+			if @todo.update(todos_update_params)
+				render json: @todo
 			else
-				render json: {error: todo.errors.messages}, status:422
+				render json: {error: @todo.errors.messages}, status:422
 			end
 		end
 
