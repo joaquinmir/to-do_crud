@@ -12,13 +12,11 @@ const ToDo = props => {
 
 
 	const handleOnChange = () => {
-		console.log(id);
 		props.handleCheckbox(id);
 		setCheck(!check);
 	}
 
 	const handleUpdateForm = (contentUpdate) =>{
-		//props.handleUpdate(id,contentUpdate);
 		props.handleUpdate(contentUpdate,id);
 		setContent(contentUpdate);
 	}

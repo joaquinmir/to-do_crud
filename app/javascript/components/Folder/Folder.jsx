@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import ToDo from '../ToDo'
 import FormToDo from '../FormToDo'
 import {useParams} from 'react-router-dom'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate } from 'react-router-dom'
 
 const header = {
     "X-CSRF-Token": document.querySelector('[name=csrf-token]').content, 
@@ -12,10 +12,10 @@ const header = {
 
 
 const Folder = (props) => {
+	let navigate = useNavigate();
 	const [todos,setTodos] = useState([]);
 	const [folderId, setFolderId] = useState(useParams().folderId);
 	const [name, setName] = useState("");
-	console.log(folderId);
 
 	useEffect(()=>{
 		fetch(`../api/folders/${folderId}`)
@@ -23,9 +23,10 @@ const Folder = (props) => {
 		.then((resp) => { 	
 			setName(resp.name);
 
-		})},[]);
+		})
+		.catch(()=>navigate("/"))},[]);
 
-	useEffect(()=>{
+		useEffect(()=>{
 		fetch(`../api/folders/${folderId}/todos`)
 		.then((resp) => {return resp.json();})
 		.then((resp) => { 
@@ -52,7 +53,6 @@ const Folder = (props) => {
 	}
 
 	const handleCheckbox = (id,e) =>{
-		console.log(id);
 		const todo = todos.find((resp) => resp.id == id)
 
 		fetch(`../api/folders/${folderId}/todos/${id}`,{
@@ -63,7 +63,6 @@ const Folder = (props) => {
 	}
 
 	const handleUpdate = (content,id,e) =>{
-		console.log(id);
 		const todo = todos.find((resp) => resp.id == id)
 
 		fetch(`../api/folders/${folderId}/todos/${id}`,{
@@ -86,9 +85,7 @@ const Folder = (props) => {
       		resp.json().then((data) => {
                 setTodos([...todos, data])
      
-            });
-      		//setTodos([...todos, resp.json()])
-      		
+            });    		
     })
 		}
 		else{
@@ -99,7 +96,7 @@ const Folder = (props) => {
 	
 	return(
 		<div className ="p-4">
-		<Link to="/" class="text-decoration-none">
+		<Link to="/" className="text-decoration-none">
       	<h1>Folders</h1> 
       	</Link>
       	<h2 className = "ms-5">> {name}</h2> 

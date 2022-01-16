@@ -17,7 +17,7 @@ const EditToDoForm = props => {
 				<div className="container">
 
 					<div className = "position-relative">
-						<div class="position-absolute top-50 start-50 translate-middle">
+						<div className="position-absolute top-50 start-50 translate-middle">
 						<div className="popup-inner">
 						<h3>Edit To-Do</h3>
 						<form className= "mt-4">

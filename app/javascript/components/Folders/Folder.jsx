@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 
 
 const Folder = (props) => {
-    console.log(props);
     const [folderId, setFolderId] = useState(props.folderId);
     const [name, setName] = useState(props.name);
 

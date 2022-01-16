@@ -26,7 +26,7 @@ module Api
 		end
 
 		def update
-			folder = Folder.find(params[:id])
+			@folder = Folder.find(params[:id])
 
 			if folder.update(folder_params)
 				render json: FolderSerializer.new(folder).serialized_json

@@ -36,7 +36,6 @@ const Folders = () => {
   }
 
   const handleSubmit = (name,e) => {
-    console.log(name)
       e.preventDefault();
       fetch(`api/folders`,{
       method: "POST",
