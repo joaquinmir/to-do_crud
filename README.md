@@ -13,14 +13,15 @@ To run this app on your computer, you will need a list of dependencies:
 
 ####  Start Up
 Once you have cloned the repository, open a prompt with ruby and execute this commands to set up the database and load the gems:
-**- bundle install       **
-*(this command  installs the dependencies specified in the Gemfile)*
-**- rake db:create        **
-*(this command creates the tables for the database)*
-**- rake db:migrate **
-*(this command modifies the db based on the migration files)*
+- **yarn add @rails/webpacker**  *(to set up webpacker)*
+- **bundle install** *(this command  installs the dependencies specified in the Gemfile)*
+- **rake db:create** *(this command creates the tables for the database)*
+- **rake db:migrate** *(this command modifies the db based on the migration files)*
 ####  Execute
 With the command **"rails s"** you can start the server and use the app on a web browser with the route[ localhost:3000]( localhost:3000 " localhost:3000").
+
+
+
 
 ####  Technologies
 - Ruby on Rails framework (for the backend) 
