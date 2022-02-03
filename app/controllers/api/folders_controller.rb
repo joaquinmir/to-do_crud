@@ -25,16 +25,6 @@ module Api
 			end
 		end
 
-		def update
-			@folder = Folder.find(params[:id])
-
-			if folder.update(folder_params)
-				render json: FolderSerializer.new(folder).serialized_json
-			else
-				render json: {error: @folder.errors.messages}, status:422
-			end
-		end
-
 		def destroy
 			@folder = Folder.find(params[:id])
 

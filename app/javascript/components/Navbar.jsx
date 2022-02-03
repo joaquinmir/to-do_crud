@@ -5,13 +5,11 @@ const Navbar = () =>{
 	return(
 
 		<nav className="navbar navbar-light bg-light">
-		  <div className="container-fluid d-flex justify-content-center">
-		  
+			<div className="container-fluid d-flex justify-content-center">
 			  	<NavLink to="/" className="navbar-brand mb-0 h1 text-primary">
-			  	 To-Do Lists
+			  		To-Do Lists
 			    </NavLink>
-		
-		    </div>
+			</div>
 		</nav>
 
 		)

@@ -21,7 +21,7 @@ const Folder = (props) => {
                     </Link>
                 </div>
                 <div className = "col">
-                    <button className="btn btn-danger" onClick={props.handleDestroy.bind(this,folderId)}>
+                    <button className="btn btn-danger" onClick={() => props.handleDestroy(folderId)}>
                                 Delete
                     </button>
                 </div>

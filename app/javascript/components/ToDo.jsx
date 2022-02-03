@@ -26,37 +26,31 @@ const ToDo = props => {
 		<div>
 			<div className = "container">
 				<div className = "row">
-				<div className = "col"><input
-			          type="checkbox"
-			          className = "form-check-input mt-2 ms-5"
-			          defaultChecked={check}
-			          onChange={handleOnChange}
-	       		 /></div>
-				<div className = "col-8">
-                    <h5>{content}</h5>
-                </div>
-	       		<div className = "col"> 
-	     		
-				<button className= "btn btn-primary btn-sm" onClick={()=>setEditButton(true)}>
-						Edit
-				</button>
-			
-				</div>
-				<div className = "col">
-				<button className="btn btn-danger btn-sm" onClick={props.handleDestroy.bind(this,id)}>
-						Delete
-				</button>
-				</div>
+					<div className = "col"><input
+				          type="checkbox"
+				          className = "form-check-input mt-2 ms-5"
+				          defaultChecked={check}
+				          onChange={handleOnChange}
+		       		 /></div>
+					<div className = "col-8">
+		                <h5>{content}</h5>
+		            </div>
+		       		<div className = "col"> 
+						<button className= "btn btn-primary btn-sm" onClick={()=>setEditButton(true)}>
+							Edit
+						</button>
+					</div>
+					<div className = "col">
+						<button className="btn btn-danger btn-sm" onClick={() => props.handleDestroy(id)}>
+							Delete
+						</button>
+					</div>
 				</div>
 			</div>
-			<EditToDoForm trigger = {editButton} setTrigger = {setEditButton} handleUpdate = {handleUpdateForm}  content = {content}>
-			</EditToDoForm>
+			<EditToDoForm trigger = {editButton} setTrigger = {setEditButton} handleUpdate = {handleUpdateForm}  content = {content}/>
 		</div>
-			
-		
-		
 
-		);
+	);
 
 }
 

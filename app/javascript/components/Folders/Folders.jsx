@@ -9,24 +9,22 @@ const header = {
 const Folders = () => {
 
   const [folders,setFolders] = useState([]);
+
   useEffect(()=>{
+
     fetch(`api/folders`)
-    .then((resp) => {return resp.json();})
-    .then((resp) => { 
+    .then((resp) => resp.json())
+    .then((resp) => setFolders(resp))
+  },[]);
 
-      setFolders(resp);
-
-      })},[]);
-
-  const handleDestroy = (id,e) => {
-    e.preventDefault();
+  const handleDestroy = (id) => {
 
     fetch(`api/folders/${id}`,{
       method: "DELETE",
       headers: header,
     }
     )
-    .then((resp) =>{
+    .then((resp) => {
       const included = [...folders]
       const index = included.findIndex( (resp) => resp.id == id )
       included.splice(index, 1)
@@ -35,21 +33,15 @@ const Folders = () => {
 
   }
 
-  const handleSubmit = (name,e) => {
-      e.preventDefault();
-      fetch(`api/folders`,{
+  const handleSubmit = (name) => {
+   
+    fetch(`api/folders`,{
       method: "POST",
       headers: header,
       body: JSON.stringify({ name:`${name}`}),
     })
-    .then( (resp) => {
-          resp.json().then((data) => {
-                setFolders([...folders, data])
-     
-            });
-          //setTodos([...todos, resp.json()])
-          
-    })
+    .then((resp) => resp.json())
+    .then((resp) => setFolders([...folders, resp]))
     };
 
   return (

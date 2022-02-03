@@ -18,31 +18,24 @@ const Folder = (props) => {
 	const [name, setName] = useState("");
 
 	useEffect(()=>{
+
 		fetch(`../api/folders/${folderId}`)
-		.then((resp) => {return resp.json();})
-		.then((resp) => { 	
-			setName(resp.name);
-
-		})
-		.catch(()=>navigate("/"))},[]);
-
-		useEffect(()=>{
+		.then((resp) => resp.json())
+		.then((resp) => setName(resp.name))
+		.catch(()=>navigate("/"))
+	
 		fetch(`../api/folders/${folderId}/todos`)
-		.then((resp) => {return resp.json();})
-		.then((resp) => { 
+		.then((resp) => resp.json())
+		.then((resp) => setTodos(resp))
+		
+	},[]);
 
-			setTodos(resp);
-
-			})},[]);
-
-	const handleDestroy = (id,e) => {
-		e.preventDefault();
+	const handleDestroy = (id) => {
 
 		fetch(`../api/folders/${folderId}/todos/${id}`,{
 			method: "DELETE",
 			headers: header,
-		}
-		)
+		})
 		.then((resp) =>{
 			const included = [...todos]
 			const index = included.findIndex( (resp) => resp.id == id )
@@ -52,73 +45,64 @@ const Folder = (props) => {
 
 	}
 
-	const handleCheckbox = (id,e) =>{
+	const handleCheckbox = (id) =>{
 		const todo = todos.find((resp) => resp.id == id)
 
 		fetch(`../api/folders/${folderId}/todos/${id}`,{
 			method: "PUT",
 			headers: header,
 			body: JSON.stringify({check: !todo.check})
-			})
+		})
 	}
 
-	const handleUpdate = (content,id,e) =>{
+	const handleUpdate = (content,id) =>{
 		const todo = todos.find((resp) => resp.id == id)
 
 		fetch(`../api/folders/${folderId}/todos/${id}`,{
 			method: "PUT",
 			headers: header,
 			body: JSON.stringify({content: `${content}`})
-			})
+		})
 	}
 
-	const handleSubmit = (description,e) => {
-		e.preventDefault();
+	const handleSubmit = (description) => {
+		
 		if(description.length > 0){
-	   
-	    fetch(`../api/folders/${folderId}/todos`,{
-			method: "POST",
-			headers: header,
-			body: JSON.stringify({ content:`${description}`}),
-		})
-		.then( (resp) => {
-      		resp.json().then((data) => {
-                setTodos([...todos, data])
-     
-            });    		
-    })
-		}
+		    fetch(`../api/folders/${folderId}/todos`,{
+				method: "POST",
+				headers: header,
+				body: JSON.stringify({ content:`${description}`}),
+			})
+			.then((resp) => resp.json())
+	      	.then((resp) => setTodos([...todos, resp]))}  		
 		else{
-			alert("Task cannot be blank")
+			alert("Task cannot be blank");
 		}
   	};
 	
 	
 	return(
 		<div className ="p-4">
-		<Link to="/" className="text-decoration-none">
-      	<h1>Folders</h1> 
-      	</Link>
-      	<h2 className = "ms-5">> {name}</h2> 
-      	
-      		<div className = "my-5"> 
-				<ul> 
-				{todos.map((data) => 
-					<ToDo key={data.id} 
-					id = {data.id} 
-					content={data.content} 
-					check={data.check} 
-					folderId={folderId} 
-					handleCheckbox={handleCheckbox} 
-					handleDestroy={handleDestroy}
-					handleUpdate={handleUpdate}/>)}
+			<Link to="/" className="text-decoration-none">
+		  		<h1>Folders</h1> 
+		  	</Link>
+		  	<h2 className = "ms-5">> {name}</h2> 
+				<div className = "my-5"> 
+				<ul>
+					{todos.map((data) =>
+						<ToDo key={data.id} 
+						id = {data.id} 
+						content={data.content} 
+						check={data.check} 
+						folderId={folderId} 
+						handleCheckbox={handleCheckbox} 
+						handleDestroy={handleDestroy}
+						handleUpdate={handleUpdate}/>)}
 				</ul>
-				
-				
 			</div>
-		<div className="d-flex justify-content-center mt-4">
-        			<FormToDo handleSubmit={handleSubmit}/>
-      			</div>
+			<div className="d-flex justify-content-center mt-4">
+		    	<FormToDo handleSubmit={handleSubmit}/>
+		  	</div>
 		</div>
 	);
 

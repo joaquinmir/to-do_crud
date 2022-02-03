@@ -3,7 +3,16 @@ import React,{useState} from 'react'
 const FormToDo = props => {
 
 	const [description, setDescription] = useState("");
+	const [aux, setAux] = useState("");
 
+	const handleSubmit = (e) => {
+
+		e.preventDefault();
+		props.handleSubmit(aux);
+		setDescription(aux);
+		setAux("");
+		
+	}
 
 	return(
 	<div>
@@ -11,18 +20,18 @@ const FormToDo = props => {
 			<input
 				type="text"
            		className="text"
-            	value={description}
-            	onChange={(e) => setDescription(e.target.value)}
+            	value={aux}
+            	onChange={(e) => setAux(e.target.value)}
 			/>
-		<button  className="ms-3 btn btn-primary" onClick={props.handleSubmit.bind(this,description)}>
-			Add
-		</button>
+			<button  className="ms-3 btn btn-primary" onClick={(e) => handleSubmit(e)}>
+				Add
+			</button>
 		</form>
 
 		
 	</div>
 
-		)
+	)
 
 }
 
